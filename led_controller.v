@@ -1,3 +1,9 @@
+// Created by BitBangingGod
+// Copyright owned by BitBangingGod
+// Licensed under MIT License
+// GitHub: https://github.com/BitBangingGod
+// Source Control: https://github.com/BitBangingGod/neopixel_hdl
+
 `timescale 1ns / 1ps
 
 module transmitter #(
