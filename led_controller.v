@@ -14,10 +14,10 @@ module transmitter #(
     parameter TRST = 8000,
     parameter pixel_width = 24
 ) (
-    input clk,
-    input reset,
-    input ready_in,
-    input [pixel_width -1 : 0] pixelData,
+    input wire clk,
+    input wire reset,
+    input wire ready_in,
+    input wire [pixel_width -1 : 0] pixelData,
     output reg ready_out,
     output reg data_out
 );
@@ -136,12 +136,12 @@ module led_controller # (
     parameter PIXEL_WIDTH = 24,
     parameter PIXEL_OFFSET = 4
 )(
-        input clk,
-        input aresetn,
-        input [ADDR_WIDTH - 1:0] dout,
+        input wire clk,
+        input wire aresetn,
+        input wire [ADDR_WIDTH - 1:0] dout,
         output reg [ADDR_WIDTH - 1:0] addr,
         output reg en,
-        output led_data,
+        output wire led_data,
         output reg [3:0]web,
         output reg rst
     );
@@ -217,7 +217,9 @@ module led_controller # (
                     state <= IsValidToContinue;
                 end
                 IsValidToContinue: begin
-                    if (pixelIndex >= pixelCount) begin
+                    if (pixelCount == 0) begin
+                        state <= RequestPixelCount;
+                    end else if (pixelIndex >= pixelCount) begin
                         state <= WaitForHandShake;
                         set_reset <= 1;
                     end else begin
